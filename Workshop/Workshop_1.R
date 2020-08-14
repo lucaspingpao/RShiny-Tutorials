@@ -25,10 +25,13 @@
   # Retrieve and print the second element of this list.
   # Name the elements of your list "first element" and "second element"
   # Retrieve the first element of the list using its name.
+# Your code here for Problem 4
 
 # Problem 5: write a loop that prints every odd number from 1 to 20, inclusive.
+# Your code here for Problem 5
 
 # Problem 6: write a function that computes the average (mean) of a vector of elements.
   # Call that function on the example vectors c(1, 2, 3, 4, 5, 6) and c(2, 4, -5, 9).
+# Your code here for Problem 6
 
 
