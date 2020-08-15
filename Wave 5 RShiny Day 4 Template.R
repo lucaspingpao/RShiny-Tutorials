@@ -6,50 +6,36 @@
 # a) Creating Data Frames -------------------------------------------------
 
 #Create columnns first and combine them into a data frame
-names <- c("Alice", "Bob", "Charlie", "David", "Eve"); names
-ages <- 15:19
-colors <- c("red", "orange", "yellow", "green", "blue")
-data1 <- data.frame(names, ages, colors); data1
+
 
 #Create data frame from scratch
-data2 <- data.frame(
-  row.names = c("q","w","e","r","t"),
-  names = c("Alice", "Bob", "Charlie", "David", "Eve"),
-  ages = 15:19,
-  colors = c("red", "orange", "yellow", "green", "blue")
-);
-data2
+
 
 
 # b) Accessing Data Frame Elements ----------------------------------------
 
 #Accessing data
-data2[1,] #row 1
-data2[c(1,2),] #row 1 and 2
-data2[,1] #column 1
-data2[1,1] #row 1 column 1
+data2
+#row 1
+#row 1 and 2
+#column 1
+#row 1 column 1
 
 #Create row/columnn names and access elements by name
-colnames(data2) <- c("column1", "column2", "column3"); data2
-rownames(data2) <- c("row1", "row2", "row3", "row4", "row5"); data2
-data2$column1
-data2$column1[1]
-data2["row1",]
-data2[,"column1"]
-data2["row1","column1"]
+data2
+#column 1
+#column 1 row 1
+#row 1
+#row 1 and 2
+#column 1
+#row 1 column 1
 
 #Subsetting Rows (subset, which)
 data1
-subData <- subset(data1, data1$names == "Charlie"); subData
-which(data1$colors == "orange")
 
 
 # c) Special Table functions ----------------------------------------------
 #(expand.grid, outer)
-a <- 1:5
-b <- 1:5
-expand.grid(a,b)
-multiplicationTable <- outer(a,b, function(a,b) a*b); multiplicationTable
 
 
 # d) Statistics -----------------------------------------------------------
@@ -57,28 +43,15 @@ multiplicationTable <- outer(a,b, function(a,b) a*b); multiplicationTable
 
 #Applying to all elements in the tabble
 multiplicationTable
-sum(multiplicationTable)
-min(multiplicationTable)
-max(multiplicationTable)
-mean(multiplicationTable)
-median(multiplicationTable)
-range(multiplicationTable)
+
 
 #Applying to specific columns
 multiplicationTable
-multiplicationTable[,4]
-min(multiplicationTable[,4])
-max(multiplicationTable[,4])
-mean(multiplicationTable[,4])
-median(multiplicationTable[,4])
-range(multiplicationTable[,4])
+
 
 #Applying sum/mean to all rows/columns
 multiplicationTable
-colSums(multiplicationTable)
-rowSums(multiplicationTable)
-colMeans(multiplicationTable)
-rowMeans(multiplicationTable)
+
 
 
 # 2. Data Analytics -------------------------------------------------------
@@ -87,14 +60,12 @@ rowMeans(multiplicationTable)
 #Go to "Session" -> "Set Working Directory" -> "Choose Directory"
 #Then choose the folder in which the dataset file is located
 dataset <- read.csv("Wave5-RShiny-Covid-Dataset.csv")
-badday <- subset(dataset, dataset$cases>1000)
+
 
 #Analyze the data!
-mean(badday$month)
+
 
 #Previewing data (str, head)
-str(dataset)
-head(dataset)
 
 
 # 3. Plotting -------------------------------------------------------------
