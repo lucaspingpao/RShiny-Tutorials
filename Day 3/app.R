@@ -14,7 +14,7 @@ library(flextable)
 
 
 # 1. a) Header ------------------------------------------------------------------
-header <- dashboardHeader(title = "Here is the Title", titleWidth = 600)
+header <- dashboardHeader(title = "Calculator", titleWidth = 600)
 
 # 1. b) Sidebar --------------------------------------------------------------
 sidebar <- dashboardSidebar(
@@ -69,11 +69,9 @@ body <- dashboardBody(
   fluidRow(
     column(width=6,
       h3("Input here:"),
-      checkboxInput(inputId = "prime", label = "Primes Only", value = FALSE),
-      sliderInput(inputId = 'n', label = 'n', min = 2, max = 50, value = 2, step = 1),
       numericInput(inputId = "leftValue", label = "Value of x", value = 0),
       numericInput(inputId = "rightValue", label = "Value of y", value = 0),
-      radioButtons(inputId = "operation", label = "Operation Type", choices = c("+", "-", "*", "/", "^"), inline=TRUE),
+      radioButtons(inputId = "operation", label = "Operation", choices = c("+", "-", "*", "/"), inline=TRUE),
       actionButton(inputId = "buttonCompute", label = "Compute!"),
     ),
     column(width=6,
@@ -104,15 +102,13 @@ ui <- dashboardPage(header, sidebar, body)
 
 
 # 2. Create/Import mathematical/formatting functions ----------------------
-source("modular.R")
+source("arithmetic.R")
 
 
 # 3. Instantiate global variables with default values ----------------------
-n <- 2
 operation <- "+"
 leftValue <- 0
 rightValue <- 0
-prime <- FALSE
 
 # 4. Create server that responds to user interaction ----------------------
 server <- function(session, input, output) {
@@ -122,83 +118,15 @@ server <- function(session, input, output) {
 
   #Functions that create default UI settings based on user input values
   #e.g. Input: mod, Output: renders appropriate data tables
-  updateTables <- function(n) {
-    # numbers from 0 to n - 1 for the table header
-    v <- seq(0, n - 1, 1)
-    # creates our multiplication table
-    # outer: takes in rows, columns, and then applies that function to each combo of row/column
-    # cbind it to v so we have our row names because R doesn't let us have rownames
-    multbldf <- as.data.frame(cbind(v, outer(v, v, function(x, y) (x * y) %% n)))
-    # labels the columns
-    colnames(multbldf) <- c("Multiply", v)
-    # plotting tool: just pass in a dataframe and it'll render a flextable
-    multbl <- flextable(multbldf)
-    # calling our getColors helper function
-    colors <- getColors(multbldf, 1)
-    # for each entry in the colors matrix (num columns in the matrix)
-    for (k in 1:length(colors[2,])) {
-      # first column is our row names, so we don't want to color that
-      # colors[2,][k] is the column coordinate
-      # colors[1,][k] is the row coordinate
-      if (colors[2,][k] != 1) {
-        # bg function colors cells in a flextable
-        # i is the row, j is the column
-        multbl <- bg(multbl, i = colors[1,][k], j = colors[2,][k], bg = "lightpink")
-        # for accessibility, we will also bold it
-        multbl <- bold(multbl, i = colors[1,][k], j = colors[2,][k])
-      }
-    }
-    # we're doing the same thing but for addition table
-    addtbldf <- as.data.frame(cbind(v, outer(v, v, function(x, y) (x + y) %% n)))
-    colnames(addtbldf) <- c("Add", v)
-    addtbl <- flextable(addtbldf)
-    # different variable name just for good practice
-    colors2 <- getColors(addtbldf, 0)
-    # same thing, colors2[1,] and colors2[2,] have the same length, so either works
-    for (k in 1:length(colors2[1,])) {
-      # again, don't color the first column
-      if (colors2[2,][k] != 1) {
-        addtbl <- bg(addtbl, i = colors2[1,][k], j = colors2[2,][k], bg = "lightpink")
-        addtbl <- bold(addtbl, i = colors2[1,][k], j = colors2[2,][k])
-      }
-    }
-    # multiplicationTable was passed in as output, so this is just how you render a table
-    output$multiplicationTable <- renderUI({htmltools_value(multbl)})
-    output$additionTable <- renderUI({htmltools_value(addtbl)})
-  }
-  
-  # Initialize default UI view
-  updateTables(2) #Default view: displays 2x2 tables
   
   # Functions that respond to events in the input
   #observeEvent(input$"inputIDname",{commands})
   
-  observeEvent(input$n, {
-    n <<- input$n #Reassign values to global variables with "<<-"
-    output$result <- renderUI(paste("N changed to", n)) #Change value of uiOutput with renderUI
-    updateTables(n)
-    if (prime) {
-      n <<- closestPrime(n, 2, 50, 0)
-      updateSliderInput(session, inputId = "n", value = n)
-    }
-  })
-  
-  observeEvent(input$prime, {
-    prime <<- input$prime
-    if (prime) {
-      n <<- closestPrime(n, 2, 50, 0)
-      updateSliderInput(session, inputId = "n", value = n)
-      updateTables(n)
-    }
-    output$result <- renderUI("")
-  })
-  
   observeEvent(input$buttonCompute, {
-    n <<- input$n
     operation <<- input$operation
     leftValue <<- as.numeric(input$leftValue)
     rightValue <<- as.numeric(input$rightValue)
-    output$result <- renderUI(withMathJax(convertEquation(n, operation, leftValue, rightValue)))
+    output$result <- renderUI(convertEquation(operation, leftValue, rightValue))
   })
 }
 
