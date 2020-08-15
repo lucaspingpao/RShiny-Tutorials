@@ -1,7 +1,6 @@
 library(shiny)
 library(shinydashboard)
 library(shinyWidgets)
-library(flextable)
 
 
 # Layout/Table of Contents ------------------------------------------------
@@ -28,11 +27,10 @@ sidebar <- dashboardSidebar(
 
 
 
-# 1. c) Body -----------------------------------------------------------------
-  # 1. c) i. Display Layout (box, fluidRow, column) ------------------------------
-  # 1. c) ii. Outputs (text, plot, table) ---------------------------------------------
-  # 1. c) iii. Widgets (checkbox, slider, numeric, radio, button) ----------------
-  # 1. c) iv. CSS formatting ----------------------------------------------------
+# 1. c) Body ------------------------------------------------------------------
+# 1. c) i. Display Layout (box, fluidRow, column, splitLayout) ----------------
+# 1. c) ii. Input Widgets (text, numeric, slider, checkbox, radio, button) ----
+# 1. c) iii. Outputs (text, plot, table) --------------------------------------
 
 body <- dashboardBody(
   fluidRow(
@@ -52,8 +50,11 @@ body <- dashboardBody(
       radioButtons(inputId="radioInput", label="Multiple Choice Answers", choices=c("Choice 1", "Choice 2", "Choice 3"), selected="Choice 1", inline=TRUE),
       splitLayout(
         actionButton(inputId="button", label="Click Me!"), 
-        actionButton(inputId="unbutton", label="Unclick Me!"),
-        actionButton(inputId="plotButton", label="Plot sin(x)!")
+        actionButton(inputId="unbutton", label="Unclick Me!")
+      ),
+      splitLayout(
+        actionButton(inputId="tableButton", label="Show data!"),
+        actionButton(inputId="plotButton", label="Plot data!")
       )
     ),
     column(
@@ -66,7 +67,10 @@ body <- dashboardBody(
       uiOutput(outputId="radioOutput"),
       uiOutput(outputId="buttonOutput"),
       hr(),
-      plotOutput(outputId="plot")
+      splitLayout(
+        tableOutput(outputId="table"),
+        plotOutput(outputId="plot")
+      )
     )
   ),
   tags$style("#result{color:red}")
@@ -78,11 +82,10 @@ ui <- dashboardPage(header, sidebar, body)
 
 
 # 2. Create/Import mathematical/formatting functions ----------------------
-#source("shinytutorial1.R")
 
 
 # 3. Instantiate global variables with default values ----------------------
-
+data <- cbind(1:5, sin(1:5))
 
 # 4. Create server that responds to user interaction ----------------------
 server <- function(session, input, output) {
@@ -120,8 +123,12 @@ server <- function(session, input, output) {
     output$buttonOutput <- renderUI("")
   })
   
+  observeEvent(input$tableButton, {
+    output$table <- renderTable(data)
+  })
+  
   observeEvent(input$plotButton, {
-    output$plot <- renderPlot(curve(sin))
+    output$plot <- renderPlot(plot(data, asp=1))
   })
 }
 
