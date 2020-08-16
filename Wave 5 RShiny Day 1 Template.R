@@ -105,10 +105,3 @@
 #Input name, output "Hello my name is ... "
 
 
-#Create a factorization function
-
-#Input number, output "The factors of ... are: "
-
-
-#Examples
-

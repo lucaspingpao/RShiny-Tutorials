@@ -136,23 +136,3 @@ greet("Lucas")
 greet("Bob")
 
 
-#Create a factorization function
-
-#Input number, output "The factors of ... are: "
-factorize <- function(number) {
-  factors <- c()
-  
-  for(i in 1:number) {
-    if( number %% i == 0 ) {
-      factors <- c(factors, i)
-    }
-  }
-  
-  message <- paste("The factors of", number, "are:")
-  stringoffactors <- paste(factors, collapse=", ")
-  return(paste(message,stringoffactors))
-}
-
-#Examples
-factorize(24)
-factorize(720)

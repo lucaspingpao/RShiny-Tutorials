@@ -20,7 +20,6 @@ data2 <- data.frame(
 );
 data2
 
-
 # b) Accessing Data Frame Elements ----------------------------------------
 
 #Accessing data
@@ -55,7 +54,7 @@ multiplicationTable <- outer(a,b, function(a,b) a*b); multiplicationTable
 # d) Statistics -----------------------------------------------------------
 #sum, min/max, mean, median, range
 
-#Applying to all elements in the tabble
+#Applying to all elements in the table
 multiplicationTable
 sum(multiplicationTable)
 min(multiplicationTable)
