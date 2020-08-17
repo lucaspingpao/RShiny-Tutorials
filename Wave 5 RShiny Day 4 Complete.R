@@ -51,35 +51,6 @@ expand.grid(a,b)
 multiplicationTable <- outer(a,b, function(a,b) a*b); multiplicationTable
 
 
-# d) Statistics -----------------------------------------------------------
-#sum, min/max, mean, median, range
-
-#Applying to all elements in the table
-multiplicationTable
-sum(multiplicationTable)
-min(multiplicationTable)
-max(multiplicationTable)
-mean(multiplicationTable)
-median(multiplicationTable)
-range(multiplicationTable)
-
-#Applying to specific columns
-multiplicationTable
-multiplicationTable[,4]
-min(multiplicationTable[,4])
-max(multiplicationTable[,4])
-mean(multiplicationTable[,4])
-median(multiplicationTable[,4])
-range(multiplicationTable[,4])
-
-#Applying sum/mean to all rows/columns
-multiplicationTable
-colSums(multiplicationTable)
-rowSums(multiplicationTable)
-colMeans(multiplicationTable)
-rowMeans(multiplicationTable)
-
-
 # 2. Data Analytics -------------------------------------------------------
 
 #Read Data

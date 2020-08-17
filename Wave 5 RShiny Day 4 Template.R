@@ -38,21 +38,6 @@ data1
 #(expand.grid, outer)
 
 
-# d) Statistics -----------------------------------------------------------
-#sum, min/max, mean, median, range
-
-#Applying to all elements in the tabble
-multiplicationTable
-
-
-#Applying to specific columns
-multiplicationTable
-
-
-#Applying sum/mean to all rows/columns
-multiplicationTable
-
-
 
 # 2. Data Analytics -------------------------------------------------------
 
