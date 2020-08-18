@@ -44,7 +44,7 @@ IQR(col4)
 var(col4)
 sd(col4)
 
-#Applying sum/mean to all rows/columns
+# Applying sum/mean to all rows/columns
 multiplicationTable
 colSums(multiplicationTable)
 rowSums(multiplicationTable)
