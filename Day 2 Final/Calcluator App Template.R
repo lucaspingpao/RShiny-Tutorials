@@ -13,17 +13,21 @@ library(shinyWidgets)
 
 
 # 1. a) Header ------------------------------------------------------------------
-
+header <- dashboardHeader(
+  
+)
 
 
 # 1. b) Sidebar --------------------------------------------------------------
-
+sidebar <- dashboardSidebar(
+  
+)
 
 
 # 1. c) Body ------------------------------------------------------------------
-# 1. c) i. Display Layout (box, fluidRow, column, splitLayout) ----------------
-# 1. c) ii. Input Widgets (text, numeric, slider, checkbox, radio, button) ----
-# 1. c) iii. Outputs (text, plot, table) --------------------------------------
+body <- dashboardBody(
+  
+)
 
 # 1. d) This code generates the UI based on all the above elements --------
 ui <- dashboardPage(header, sidebar, body)
@@ -33,12 +37,18 @@ ui <- dashboardPage(header, sidebar, body)
 # 2. Create/Import mathematical/formatting functions ----------------------
 
 
+
 # 3. Instantiate global variables with default values ----------------------
-data <- cbind(1:5, sin(1:5))
+
+
 
 # 4. Create server that responds to user interaction ----------------------
 server <- function(session, input, output) {
   
+  #Responds to the button
+  #Assign new values to the global variables
+  #Error handling message
+
 }
 
 
