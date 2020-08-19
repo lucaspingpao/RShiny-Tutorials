@@ -88,5 +88,3 @@ server <- function(session, input, output) {
 # 5. Run the app ----------------------------------------------------------
 shinyApp(ui = ui, server = server)
 
-
-
